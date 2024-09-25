@@ -3,6 +3,7 @@ import BrandsModel from "../models/brandsModel.js";
 import CategoriesModel from "../models/categoriesModel.js";
 import SliderModel from "../models/slidersModel.js";
 import ProductsModel from "../models/productsModel.js";
+import ReviewsModel from "../models/reviewsModel.js";
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -61,7 +62,7 @@ export const ListByBrandService = async (req) => {
     }
 }
 
-export const ListByCategoryService = async (req, res) => {
+export const ListByCategoryService = async (req) => {
     try{
         const CategoryID = new ObjectId(req.params.CategoryID);
         const MatchingStage = {$match: {categoryID: CategoryID}};
@@ -89,7 +90,7 @@ export const ListByCategoryService = async (req, res) => {
     }
 }
 
-export const ListByRemarkService = async (req,res) => {
+export const ListByRemarkService = async (req) => {
     try{
         const Remark = req.params.Remark;
         const MatchingStage = {$match: {remark: Remark}};
@@ -117,11 +118,38 @@ export const ListByRemarkService = async (req,res) => {
     }
 }
 
-export const ListByKeywordService = async (keyword) => {
+export const ListByKeywordService = async (req) => {
+    try {
+        const Keyword = req.params.Keyword;
+        const regex = {$regex: Keyword, $options: "i"};
+        const SearchParams = [{title: regex}, {shortDes: regex}];
+        const SearchQuery = {$or: SearchParams};
+        const MatchingStage = {$match: SearchQuery};
 
+        const  JoinWithBrandStage = {$lookup: {from: "brands", localField: "brandID", foreignField: "_id", as: "brand"}};
+        const  JoinWithCategoryStage = {$lookup: {from: "categories", localField: "categoryID", foreignField: "_id", as: "category"}};
+
+        const UnwindBrandStage = {$unwind: "$brand"};
+        const UnwindCategoryStage = {$unwind: "$category"};
+
+        const ProjectStage = {$project: {"brand._id": 0, "category._id": 0, "brandID": 0, "categoryID": 0}};
+
+        const data = await ProductsModel.aggregate([
+            MatchingStage,
+            JoinWithBrandStage,
+            JoinWithCategoryStage,
+            UnwindBrandStage,
+            UnwindCategoryStage,
+            ProjectStage
+        ]);
+
+        return {status: 'success', data: data}
+    }catch (e) {
+        return {status: 'fail', data: e.toString()}
+    }
 }
 
-export const DetailByIdService = async (req, res) => {
+export const DetailByIdService = async (req) => {
     try {
         const DetailsID = new ObjectId(req.params.DetailsID);
         const MatchingStage = {$match: {_id: DetailsID}};
@@ -153,8 +181,28 @@ export const DetailByIdService = async (req, res) => {
     }
 }
 
-export const ReviewListService = async () => {
+export const ReviewListService = async (req) => {
+    try {
+        const ReviewID = new ObjectId(req.params.ReviewID);
+        const MatchingStage = {$match: {productID: ReviewID}};
 
+        const JoinWithProfileStage = {$lookup: {from: "profiles", localField: "userID", foreignField: "userID", as: "profile"}};
+
+        const UnwindProfileStage = {$unwind: "$profile"};
+
+        const ProjectStage = {$project: {"des": 1, "rating": 1, "profile.cus_name": 1}};
+
+        const data = await ReviewsModel.aggregate([
+            MatchingStage,
+            JoinWithProfileStage,
+            UnwindProfileStage,
+            ProjectStage
+        ]);
+
+        return {status: 'success', data: data};
+    }catch (e) {
+        return {status: 'fail', data: e.toString()};
+    }
 }
 
 export const CreateReviewService = async () => {

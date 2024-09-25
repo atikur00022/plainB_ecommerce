@@ -1,31 +1,16 @@
+import {CreateWishService, ReadWishService, RemoveWishService} from "../service/WishListServices.js";
+
 export const CreateWish = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'Wish Created'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await CreateWishService(req);
+    res.json(result);
 }
 
 export const ReadWish = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'Wish read'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
-}
-
-export const UpdateWish = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'Wish update'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await ReadWishService(req);
+    res.json(result);
 }
 
 export const RemoveWish = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'Wish remove'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await RemoveWishService(req);
+    res.json(result);
 }

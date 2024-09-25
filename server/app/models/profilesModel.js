@@ -17,7 +17,7 @@ const ProfileSchema = new mongoose.Schema(
         ship_postcode: { type: String },
         ship_country: { type: String },
         ship_phone: { type: String },
-        user_id: { type: mongoose.Schema.Types.ObjectId, ref: "profiles", required: true }
+        userID: { type: mongoose.Schema.Types.ObjectId, ref: "profiles", required: true }
     },
     {
         timestamps: true,

@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const ReviewSchema = new Mongoose.Schema(
+const ReviewSchema = new mongoose.Schema(
     {
-        discription:{ type: String, required: true },
+        des:{ type: String, required: true },
         rating: { type: String, required: true},
-        customer_id: { type: Mongoose.Schema.Types.ObjectId, ref: 'profiles', required: true},
-        product_id: { type: Mongoose.Schema.Types.ObjectId, ref: 'products', required: true},
+        userID: { type: mongoose.Schema.Types.ObjectId, required: true},
+        productID: { type: mongoose.Schema.Types.ObjectId, required: true},
     },
     {
         timestamps: true,

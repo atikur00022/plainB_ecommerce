@@ -1,39 +1,42 @@
+import {
+    CreateUserProfileService,
+    LoginService, ReadUserProfileService,
+    UpdateUserProfileService,
+    VerifyLoginService
+} from "../service/UserServices.js";
+import {ProductReviewCreateService, ProductReviewUpdateService} from "../service/ProductReviewServices.js";
+
 export const Login = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'User Login'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await LoginService(req);
+    res.json(result);
 }
 
 export const VerifyLogin = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'User Verify Login'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await VerifyLoginService(req);
+    res.json(result);
 }
 
 export const CreateUserProfile = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'User profle crated successfully'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await CreateUserProfileService(req);
+    res.json(result);
 }
 
 export const ReadUserProfile = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'User Profile read'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await ReadUserProfileService(req);
+    res.json(result);
 }
 
 export const UpdateUserProfile = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'User Profile update'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await UpdateUserProfileService(req);
+    res.json(result);
+}
+
+export const ProductReviewCreate = async (req, res) => {
+    const result = await ProductReviewCreateService(req);
+    res.json(result);
+}
+
+export const ProductReviewUpdate = async (req, res) => {
+    const result = await ProductReviewUpdateService(req);
+    res.json(result);
 }
