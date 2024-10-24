@@ -9,8 +9,8 @@ import * as ProductsController from '../app/controllers/ProductsController.js';
 import * as InvoicesController from '../app/controllers/InvoicesController.js';
 import * as WishListsController from '../app/controllers/WishListsController.js';
 import * as CartListsController from '../app/controllers/CartListsController.js';
+import * as FeaturesController from "../app/controllers/FeaturesController.js";
 import AuthMiddleware from "../app/middlewares/AuthMiddleware.js";
-import {ProductReviewUpdate} from "../app/controllers/UsersController.js";
 
 
 // Users Routes
@@ -51,10 +51,24 @@ router.get('/ProductDetailsByID/:DetailsID', ProductsController.ProductDetailsBy
 router.get('/ProductReviewListByID/:ReviewID', ProductsController.ProductReviewListByID);
 router.post('/UpdateProductReview', ProductsController.UpdateProductReview);
 
+// Product Filter Routes
+router.post('/ProductListByFilter', ProductsController.ProductListByFilter)
+
+// Features Routes
+router.get('/FeaturesList', FeaturesController.FeaturesList);
+router.get('/legalDetails/:type', FeaturesController.legalDetails);
+
 // Invoices Routes
-router.post('/CreateInvoice', InvoicesController.CreateInvoice);
-router.get('/ReadInvoice', InvoicesController.ReadInvoice);
-router.get('/ReadInvoiceDetails', InvoicesController.ReadInvoiceDetails);
+router.post('/CreateInvoice', AuthMiddleware, InvoicesController.CreateInvoice);
+router.get('/ReadInvoice', AuthMiddleware,  InvoicesController.ReadInvoice);
+router.get('/ReadInvoiceProduct/:id', AuthMiddleware, InvoicesController.ReadInvoiceProduct);
+
+// Payment Routes
+router.post('/PaymentSuccess/:trxID', InvoicesController.PaymentSuccess);
+router.post('/PaymentFail/:trxID', InvoicesController.PaymentFail);
+router.post('/PaymentCancel/:trxID', InvoicesController.PaymentCancel);
+router.post('/PaymentIPN/:trxID', InvoicesController.PaymentIPN);
+
 
 
 export default router;

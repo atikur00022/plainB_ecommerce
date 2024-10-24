@@ -1,14 +1,14 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
-const InvoicesProductSchema = new Mongoose.Schema(
+const InvoicesProductSchema = new mongoose.Schema(
     {
         qty: { type: String, required: true },
         price: { type: String, required: true },
         color: { type: String, required: true },
         size: { type: String, required: true },
-        invoice_id: { type: Mongoose.Schema.Types.ObjectId, required: true},
-        product_id: { type: Mongoose.Schema.Types.ObjectId, required: true },
-        user_id: { type: Mongoose.Schema.Types.ObjectId, required: true },
+        invoiceID: { type: mongoose.Schema.Types.ObjectId, required: true},
+        productID: { type: mongoose.Schema.Types.ObjectId, required: true },
+        userID: { type: mongoose.Schema.Types.ObjectId, required: true },
     },
     {
         timestamps: true,
@@ -16,6 +16,6 @@ const InvoicesProductSchema = new Mongoose.Schema(
     }
 );
 
-const InvoicesProductModel = mongoose.model("invoicesProduct", InvoicesProductSchema);
+const InvoicesProductModel = mongoose.model("invoicesproducts", InvoicesProductSchema);
 
 export default InvoicesProductModel;

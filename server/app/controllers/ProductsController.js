@@ -2,7 +2,7 @@ import {
     DetailByIdService,
     ListByBrandService,
     ListByCategoryService, ListByKeywordService,
-    ListByRemarkService, ReviewListService,
+    ListByRemarkService, ProductListByFilterService, ReviewListService,
     SliderListsService
 } from "../service/ProductServices.js";
 
@@ -41,6 +41,11 @@ export const ProductReviewListByID = async (req, res) => {
     res.json(result);
 }
 
+export const ProductListByFilter = async (req, res) => {
+    const result = await ProductListByFilterService(req);
+    res.json(result);
+}
+
 export const CreateProductReview = async (req, res) => {
     try {
         res.status(200).json({status: 'success', message: 'Create Product Review'});
@@ -56,3 +61,20 @@ export const UpdateProductReview = async (req, res) => {
         res.status(500).json({status: 'error', message: err.message});
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

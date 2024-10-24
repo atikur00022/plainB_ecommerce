@@ -14,6 +14,7 @@ import {
     WEB_CACHE
 } from "./app/config/config.js";
 import router from "./routes/api.js";
+import path from 'path';
 
 const app = express();
 
@@ -37,7 +38,14 @@ mongoose.connect(DATABASE,{autoIndex:true}).then(()=>{
     console.log("MongoDB disconnected");
 });
 
-app.use("/api",router)
+app.use("/api",router);
+
+app.use(express.static('client/dist'));
+
+// Add React Frontend Routing
+app.get('*', function (req, res){
+    res.sendFile(path.resolve(__dirname,'client','dist','index.html'));
+});
 
 app.listen(PORT,()=>{
     console.log(`Server running on port ${PORT}`);

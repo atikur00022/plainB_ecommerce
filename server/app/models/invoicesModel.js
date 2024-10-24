@@ -1,12 +1,11 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
-const InvoicesSchema = new Mongoose.Schema(
+const InvoicesSchema = new mongoose.Schema(
     {
         total: { type: String, required: true },
         vat: { type: String, required: true },
         payable: { type: String, required: true },
         cus_details: { type: String, required: true },
-        ship_details: { type: String, required: true },
         ship_details: { type: String, required: true },
         val_id: { type: String, required: true },
         tran_id: { type: String, required: true },

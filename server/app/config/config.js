@@ -25,6 +25,7 @@ export const FAIL_URL = ""
 export const CANCEL_URL = ""
 export const INIT_URL = ""
 
-// ecommerce
-// WrOYTLnHD90ifkBP
-// plainB
+// Domain Hosting infromation
+// user name :  2336
+// password : amauJYSyhmUzvcbKNVphpB7x
+

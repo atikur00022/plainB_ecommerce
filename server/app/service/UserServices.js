@@ -2,7 +2,6 @@ import SendEmail from "../utility/EmailUtility.js";
 import UserModel from "../models/usersModel.js";
 import {TokenEncode} from "../utility/TokenUtility.js";
 import ProfileModel from "../models/profilesModel.js";
-import {UpdateUserProfile} from "../controllers/UsersController.js";
 
 export const LoginService = async (req) => {
     try {

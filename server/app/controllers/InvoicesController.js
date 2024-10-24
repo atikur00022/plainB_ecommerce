@@ -1,25 +1,70 @@
+import {
+    CreateInvoiceService,
+    PaymentCancelService,
+    PaymentFailService, PaymentIPNService,
+    PaymentSuccessService, ReadInvoiceProductService, ReadInvoiceService
+} from "../service/InvoiceService.js";
+
 export const CreateInvoice = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'Invoice Created'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await CreateInvoiceService(req);
+    res.json(result);
 }
 
 export const ReadInvoice = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'Invoice read'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+    const result = await ReadInvoiceService(req);
+    res.json(result);
 }
 
-export const ReadInvoiceDetails = async (req, res) => {
-    try {
-        res.status(200).json({status: 'success', message: 'Invoice details read'});
-    }catch(err) {
-        res.status(500).json({status: 'error', message: err.message});
-    }
+export const ReadInvoiceProduct = async (req, res) => {
+    const result = await ReadInvoiceProductService(req);
+    res.json(result);
 }
+
+export const PaymentSuccess = async (req, res) => {
+    const result = await PaymentSuccessService(req);
+    res.json(result);
+}
+
+export const PaymentFail = async (req, res) => {
+    const result = await PaymentFailService(req);
+    res.json(result);
+}
+
+export const PaymentCancel = async (req, res) => {
+    const result = await PaymentCancelService(req);
+    res.json(result);
+}
+
+export const PaymentIPN = async (req, res) => {
+    const result = await PaymentIPNService(req);
+    res.json(result);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
